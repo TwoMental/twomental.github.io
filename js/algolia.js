@@ -1,7 +1,7 @@
 (() => {
   // ns-params:@params
   var baseURL = "https://twomental.github.io/";
-  var params = { blogroll: [{ name: "Apple", url: "https://Apple.com/" }], defaultcover: "https://i2.100024.xyz/2024/02/24/tz0rmg.webp", email: "twomental@gmail.com", showcopyright: true, showmore: true, showrss: true, socialmedia: [{ name: "Github", url: "https://github.com/TwoMental" }] };
+  var params = { defaultcover: "https://i2.100024.xyz/2024/02/24/tz0rmg.webp", email: "twomental@gmail.com", showcopyright: true, showmore: true, showrss: true, socialmedia: [{ name: "Github", url: "https://github.com/TwoMental" }] };
 
   // <stdin>
   var { appid, appkey, searchindex: indexName, enabled } = params.algolia;
