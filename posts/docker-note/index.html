@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="/img/favicon.ico">
+
+    <meta name="keyword" content=""><meta property="og:title" content="Docker笔记" />
+<meta property="og:description" content="docker日常使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://twomental.github.io/posts/docker-note/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-09T14:30:50+08:00" />
+<meta property="article:modified_time" content="2024-03-09T14:30:50+08:00" />
+
+<title>Docker笔记</title>
+
+    <link rel="canonical" href="/posts/docker-note/">
+
+    <link rel="stylesheet" href="/css/global.css">
+
+    <link rel="stylesheet" href="/css/custom.css">
+
+    <link rel="stylesheet" href="/css/search.css" />
+
+    
+    
+
+    
+    
+
+</head>
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="/ " class="nav-title">TwoMental&#39;s Blog</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="/posts " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://twomental.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
+    </header>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        docker
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">March 9, 2024</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Docker笔记</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content">docker日常使用</div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="/tags/docker" class="tag">
+                    docker
+                  </a>
+                
+                  
+                  <a href="/tags/dockerfile" class="tag">
+                    dockerfile
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+<div class="component-content pagebody component">
+  <h1 id="1-基本介绍" class="pagebody-header">
+    1. 基本介绍
+  </h1>
+</div>
+<div class="component-content pagebody component">
+  <h2 id="11-docker原理" class="pagebody-header">
+    1.1 Docker原理
+  </h2>
+</div><p class="component-content component">TODO</p>
+
+<div class="component-content pagebody component">
+  <h2 id="12-vs-虚拟机" class="pagebody-header">
+    1.2 VS 虚拟机
+  </h2>
+</div><p class="component-content component">TODO</p>
+
+<div class="component-content pagebody component">
+  <h1 id="2-使用别人的镜像" class="pagebody-header">
+    2. 使用别人的镜像
+  </h1>
+</div>
+<div class="component-content pagebody component">
+  <h2 id="21-获取镜像" class="pagebody-header">
+    2.1 获取镜像
+  </h2>
+</div><div class="component-content component"><ul>
+<li>如果是拉在<a href="https://hub.docker.com/">Docker Hub</a>注册的镜像，比如python的镜像
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 明确tag</span>
+</span></span><span style="display:flex;"><span>docker pull python:3.9.0
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 不明确tag默认为latest</span>
+</span></span><span style="display:flex;"><span>docker pull python</span></span></code></pre></div></div>
+  
+</div></li>
+<li>如果是拉非Docker hub注册的公开镜像，比如elastic公司的logstash镜像
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 镜像名构成：地址/命名空间/镜像名[:镜像tag]</span>
+</span></span><span style="display:flex;"><span>docker pull docker.elastic.co/logstash/logstash:7.6.0</span></span></code></pre></div></div>
+  
+</div></li>
+<li>如果是拉非公开镜像，比如自己仓库的镜像
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 先登录</span>
+</span></span><span style="display:flex;"><span>docker login xxx.xxx
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 再拉镜像</span>
+</span></span><span style="display:flex;"><span>docker pull xxx.xxx/some_project/some_img:0.1.0</span></span></code></pre></div></div>
+  
+</div></li>
+<li>如果镜像仓库不是https
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 修改/etc/docker/daemon.json</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 添加 &#34;insecure-registries&#34;:[&#34;192.166.1.23:5001&#34;]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 重启docker</span>
+</span></span><span style="display:flex;"><span>systemctl restart docker
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 登录</span>
+</span></span><span style="display:flex;"><span>docker login 192.166.1.23:5001
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 再拉镜像</span>
+</span></span><span style="display:flex;"><span>docker pull 192.166.1.23:5001/some_project/some_img:0.1.0</span></span></code></pre></div></div>
+  
+</div></li>
+<li>如果要运行的环境甚至不能联网
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 保存镜像</span>
+</span></span><span style="display:flex;"><span>docker save nginx -o nginx.tar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 拷贝到不能联网到机器</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># scp / u盘 / ...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载</span>
+</span></span><span style="display:flex;"><span>docker load -i nginx.tar</span></span></code></pre></div></div>
+  
+</div></li>
+<li>总结
+<div class="component-content component"><table>
+<thead>
+<tr>
+<th>是否docker hub注册镜像</th>
+<th>是否公开镜像</th>
+<th>镜像仓库是否为https</th>
+<th>是否有网</th>
+<th>使用方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>docker pull python:3.9.0</td>
+</tr>
+<tr>
+<td>✖️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>docker pull docker.elastic.co/logstash/logstash:7.6.0</td>
+</tr>
+<tr>
+<td>✖️</td>
+<td>✖️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>docker login + docker pull</td>
+</tr>
+<tr>
+<td>✖️</td>
+<td>-</td>
+<td>✖️</td>
+<td>✔️</td>
+<td>修改daemon后操作</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>✖️</td>
+<td>docker save + docker load</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h1 id="3-自己构建镜像" class="pagebody-header">
+    3. 自己构建镜像
+  </h1>
+</div>
+<div class="component-content pagebody component">
+  <h2 id="31-构建镜像流程" class="pagebody-header">
+    3.1 构建镜像流程
+  </h2>
+</div><div class="component-content component"><ol>
+<li>写Dockerfile: 见下文</li>
+<li><code>docker build</code>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 用名为Dockerfile的dockerfile</span>
+</span></span><span style="display:flex;"><span>docker build .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 指定dockerfile</span>
+</span></span><span style="display:flex;"><span>docker build . -f Dockerfile_test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># build并打tag</span>
+</span></span><span style="display:flex;"><span>docker build . -t test:0.1.0</span></span></code></pre></div></div>
+  
+</div></li>
+<li><code>docker tag</code></li>
+<li><code>docker push</code></li>
+</ol></div>
+
+<div class="component-content pagebody component">
+  <h2 id="32-编写dockerfile" class="pagebody-header">
+    3.2 编写Dockerfile
+  </h2>
+</div><div class="component-content component"><ul>
+<li>Dockerfile格式
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#75715e"># 基本格式：命令 参数</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">########################</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">###     拉基础镜像    ###</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">########################</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> golang:alpine</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">#FROM ubuntu</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">########################</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">###      一番操作     ###</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">###  （以下为常见命令） ###</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">########################</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## 设置镜像根目录</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## 设置镜像内的环境变量</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> COMPANY<span style="color:#f92672">=</span>wudun
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span> USER twomental<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## 设置build阶段的参数</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> APP_NAME<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> APP_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>.1.0<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## 运行命令</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> /bin/sh -c <span style="color:#e6db74">&#34;echo </span>$COMPANY<span style="color:#e6db74">&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/sh&#34;</span>, <span style="color:#e6db74">&#34;-c&#34;</span>, <span style="color:#e6db74">&#34;echo </span>$USER<span style="color:#e6db74">&#34;</span><span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> echo $APP_NAME,$APP_VERSION<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## 从目录里拷贝文件进镜像</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> entrypoint.sh .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## .dockerignore</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">########################</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">###  指定容器启动命令  ###</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">########################</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## ENTRYPOINT（多个的话只运行最后一个）</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> /app/entrypoint.sh hello<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;/app/entrypoint.sh&#34;</span>, <span style="color:#e6db74">&#34;hello&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## CMD（多个的话只运行最后一个）</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#e6db74">&#34;$COMPANY&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> echo $USER<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## ENTRYPOINT + CMD</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;top&#34;</span>, <span style="color:#e6db74">&#34;-b&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;-c&#34;</span>]</span></span></code></pre></div></div>
+  
+</div></li>
+<li>例子
+<div class="component-content component"><ul>
+<li>解释型语言，以python项目为例
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:3.7.2-alpine</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> LC_ALL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C.UTF-8&#34;</span> LANG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C.UTF-8&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> set -ex <span style="color:#f92672">&amp;&amp;</span> pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> set -ex <span style="color:#f92672">&amp;&amp;</span> pip3 install pipenv -i https://mirrors.aliyun.com/pypi/simple<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk update <span style="color:#f92672">&amp;&amp;</span> apk add py3-zmq <span style="color:#f92672">&amp;&amp;</span> apk add curl<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> Pipfile Pipfile.lock ./<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ONBUILD</span> <span style="color:#66d9ef">RUN</span> set -ex <span style="color:#f92672">&amp;&amp;</span> pipenv install --deploy --system<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install dependenciese, build and clean up. But keep c++ libs.</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> sed -i <span style="color:#e6db74">&#39;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&#39;</span> /etc/apk/repositories<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> set -ex<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apk add --no-cache --virtual .build-deps <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    ca-certificates <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    gcc <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    linux-headers <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    musl-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libffi-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    jpeg-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    zlib-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> pipenv install --system --deploy --ignore-pipfile <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> find /usr/local <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\(</span> -type d -a -name test -o -name tests <span style="color:#ae81ff">\)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -o <span style="color:#ae81ff">\(</span> -type f -a -name <span style="color:#e6db74">&#39;*.pyc&#39;</span> -o -name <span style="color:#e6db74">&#39;*.pyo&#39;</span> <span style="color:#ae81ff">\)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -exec rm -rf <span style="color:#e6db74">&#39;{}&#39;</span> + <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> runDeps<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    scanelf --needed --nobanner --recursive /usr/local <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | awk <span style="color:#e6db74">&#39;{ gsub(/,/, &#34;\nso:&#34;, $2); print &#34;so:&#34; $2 }&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | sort -u <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | xargs -r apk info --installed <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | sort -u <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apk add --virtual .rundeps $runDeps <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apk del .build-deps<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . ./<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [ <span style="color:#e6db74">&#34;/app/entrypoint.sh&#34;</span> ]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">STOPSIGNAL</span><span style="color:#e6db74"> SIGTERM</span></span></span></code></pre></div></div>
+  
+</div></li>
+<li>编译型语言，以go项目为例
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-docker" data-lang="docker"><span style="display:flex;"><span><span style="color:#75715e"># 阶段一：用于编译</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> golang:alpine AS base</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> go build -o server .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 阶段二：用于运行</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> alpine:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>base /app/server ./<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> ./server</span></span></code></pre></div></div>
+  
+</div></li>
+</ul></div>
+</li>
+<li>善用多阶段构建
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker_test stage_1 5f953dcafb9c   About a minute ago   822MB
+</span></span><span style="display:flex;"><span>docker_test stage_2 3c168da33a5a   About a minute ago   61.1MB</span></span></code></pre></div></div>
+  
+</div></li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="33-跨cpu架构build" class="pagebody-header">
+    3.3 跨CPU架构build
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="331-buildx" class="pagebody-header">
+    3.3.1 buildx
+  </h3>
+</div><div class="component-content component"><ul>
+<li>适用场景：在x86的机器上build的镜像，希望能在arm的机器上跑起来</li>
+<li>步骤
+<div class="component-content component"><ol>
+<li>qemu: 开启arm平台支持
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --rm --privileged multiarch/qemu-user-static --reset -p yes</span></span></code></pre></div></div>
+  
+</div></li>
+<li>安装buildx（以Ubuntu为例）<br>
+a. 下载机器对应的二进制安装包: <a href="https://github.com/docker/buildx/releases">buildx-release</a><br>
+b. 将其拷贝至$HOME/.docker/cli-plugins<br>
+c. 确认安装成功: <code>docker buildx version</code></li>
+<li>初始化builder
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 新建一个builder instance, </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   名字叫arm(--name), </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   指定支持的平台(--platform), </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   指定driver(--driver), </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   使用(--use)</span>
+</span></span><span style="display:flex;"><span>docker buildx create <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --name arm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --platform linux/arm64,linux/arm,linux/amd64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --driver docker-container --use
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># boot并查看</span>
+</span></span><span style="display:flex;"><span>docker buildx inspect arm --bootstrap</span></span></code></pre></div></div>
+  
+</div>其中:
+<div class="component-content component"><ul>
+<li>docker buildx create 用于新建builder
+<div class="component-content component"><ul>
+<li><code>--name</code>: 指定名称</li>
+<li><code>--platform</code>: 支持架构, 包括arm64、arm、amd64等（详见<a href="https://github.com/containerd/containerd/blob/v1.7.13/platforms/platforms.go#L86">github</a>）</li>
+<li><code>--use</code>: 使用这个builder</li>
+</ul></div>
+</li>
+<li>docker buildx inspect 用于查看builder</li>
+</ul></div>
+</li>
+<li>buildx
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker buildx build --platform linux/arm64 . -t <span style="color:#66d9ef">$(</span>IMG_NAME<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>TAG<span style="color:#66d9ef">)</span> -f Dockerfile --load</span></span></code></pre></div></div>
+  
+</div>其中:
+<div class="component-content component"><ul>
+<li>docker buildx build用于build
+<div class="component-content component"><ul>
+<li><code>--platform</code>: 为哪些架构build</li>
+<li><code>-t</code>: tag</li>
+<li><code>-f</code>: dockerfile文件名</li>
+<li><code>--load</code>: 将build完的镜像加载到docker（不然只在缓存里，docker images找不到这个镜像）</li>
+</ul></div>
+</li>
+</ul></div>
+</li>
+</ol></div>
+</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="332-manifest" class="pagebody-header">
+    3.3.2 manifest
+  </h3>
+</div><div class="component-content component"><ul>
+<li>适用场景：同一个tag的镜像，希望能在不同架构的设备上都能跑</li>
+<li>步骤
+<div class="component-content component"><ol>
+<li>build image
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># build amd64</span>
+</span></span><span style="display:flex;"><span>docker buildx build . --load <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -t <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_amd64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -f Dockerfile_amd64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --platform linux/amd64
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># build arm64</span>
+</span></span><span style="display:flex;"><span>docker buildx build . --load <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -t <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_arm64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -f Dockerfile_arm64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --platform linux/arm64</span></span></code></pre></div></div>
+  
+</div></li>
+<li>push image
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># push amd64</span>
+</span></span><span style="display:flex;"><span>docker push <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_amd64
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># push arm64</span>
+</span></span><span style="display:flex;"><span>docker push <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_arm64</span></span></code></pre></div></div>
+  
+</div></li>
+<li>create manifest
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker manifest create <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span> --amend <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_amd64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_arm64</span></span></code></pre></div></div>
+  
+</div></li>
+<li>annotate manifest
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># anotate amd64</span>
+</span></span><span style="display:flex;"><span>docker manifest annotate <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_amd64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --os linux --arch amd64
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># anotate arm64</span>
+</span></span><span style="display:flex;"><span>docker manifest annotate <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span>_arm64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --os linux --arch arm64 --variant v8</span></span></code></pre></div></div>
+  
+</div></li>
+<li>push manifest
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker manifest push <span style="color:#e6db74">${</span>IMG_NAME<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>IMG_VERSION<span style="color:#e6db74">}</span></span></span></code></pre></div></div>
+  
+</div></li>
+</ol></div>
+</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h1 id="4-运行容器" class="pagebody-header">
+    4. 运行容器
+  </h1>
+</div>
+<div class="component-content pagebody component">
+  <h2 id="41-容器启动停止" class="pagebody-header">
+    4.1 容器启动/停止
+  </h2>
+</div><div class="component-content component"><ul>
+<li>启动容器：<code>docker run</code>
+<div class="component-content component"><ul>
+<li>用法：<code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code></li>
+<li>常用options
+<div class="component-content component"><ul>
+<li><code>—name</code>：指定容器名称</li>
+<li><code>—publish, -p</code>: 绑定容器端口到主机特定端口</li>
+<li><code>—volume, -v</code>: 数据挂载</li>
+<li><code>—env, -e</code>: 设置容器内环境变量</li>
+<li><code>—env-file</code>: 用文件设置容器内环境变量</li>
+<li><code>—restart</code>: 容器重启规则</li>
+</ul></div>
+</li>
+</ul></div>
+</li>
+<li>同时启动多个容器：<code>docker-compose</code>
+<div class="component-content component"><ul>
+<li>小工具：<a href="https://github.com/magicmark/composerize">composerize</a>，翻译docker命令行为docker-compose</li>
+</ul></div>
+</li>
+<li>容器停止：<code>docker stop xxx</code></li>
+<li>容器重启：<code>docker restart xxx</code> / <code>docker start xxx</code></li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="42-容器查看" class="pagebody-header">
+    4.2 容器查看
+  </h2>
+</div><div class="component-content component"><ul>
+<li>查看运行中的容器：<code>docker ps</code></li>
+<li>查看所有容器（包括运行的、停止的）：<code>docker ps -a</code></li>
+<li>查看容器日志：<code>docker logs -f —tail 100 xxx</code></li>
+<li>查看容器/镜像信息：<code>docker inspect xxx</code></li>
+<li>在容器里执行命令：<code>docker exec</code>
+<div class="component-content component"><ul>
+<li>用法：<code>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</code></li>
+<li>常用options
+<div class="component-content component"><ul>
+<li><code>—-interactive, -i</code>：进入交互</li>
+<li>&hellip;</li>
+</ul></div>
+</li>
+</ul></div>
+</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="43-容器删除" class="pagebody-header">
+    4.3 容器删除
+  </h2>
+</div><div class="component-content component"><ul>
+<li>删除容器（容器已停止）：<code>docker rm xxx</code></li>
+<li>删除容器（容器未停止）：<code>docker rm -f xxx</code></li>
+<li>删除镜像（镜像未被使用）：<code>docker rmi xxx</code></li>
+<li>删除镜像（镜像正在被使用）：<code>docker rmi -f xxx</code></li>
+</ul></div>
+
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  TwoMental </p>
+                <p class="content">Posted on:  March 9, 2024</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
+  </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://twomental.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
+    
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:two.mental0309@gmail.com">two.mental0309@gmail.com</a></div>
+          </div>
+
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="https://github.com/TwoMental" target="_blank">Github</a>
+            
+          </div>
+
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+    
+    
+
+    
+    
+</html>

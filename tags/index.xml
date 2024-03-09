@@ -6,6 +6,21 @@
     <description>Recent content in Tags on TwoMental&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-ch</language>
+    <lastBuildDate>Sat, 09 Mar 2024 14:30:50 +0800</lastBuildDate>
     <atom:link href="https://twomental.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://twomental.github.io/tags/docker/</link>
+      <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
+      <guid>https://twomental.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dockerfile</title>
+      <link>https://twomental.github.io/tags/dockerfile/</link>
+      <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
+      <guid>https://twomental.github.io/tags/dockerfile/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
