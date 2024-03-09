@@ -1,7 +1,7 @@
 (() => {
   // ns-params:@params
   var baseURL = "https://twomental.github.io/";
-  var params = { defaultcover: "https://i2.100024.xyz/2024/02/24/tz0rmg.webp", email: "two.mental0309@gmail.com", showcopyright: true, showmore: true, showrss: true, socialmedia: [{ name: "Github", url: "https://github.com/TwoMental" }] };
+  var params = { defaultcover: "https://github.com/TwoMental/twomental.github.io/blob/main/images/blog_default.jpg?raw=true", email: "two.mental0309@gmail.com", showcopyright: true, showmore: true, showrss: true, socialmedia: [{ name: "Github", url: "https://github.com/TwoMental" }] };
 
   // <stdin>
   var { appid, appkey, searchindex: indexName, enabled } = params.algolia;
