@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en-ch" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="# 基本介绍 Go的container包提供了三种数据结构的实现，包括堆（heap）、双向列表（list）、环形列表（ring）。 # container/heap # 数据结构 完全二叉树：在完全二叉树中，所有的层都被完全填满，除了可能的最后一层。在最后一层，所有的节点都尽可能地向左对齐。 堆是特殊的完全二叉树，特殊点在于父节点与其子节点的大小关系： 对于最小堆：父节点的值总是小于或等于其子节点的值。 对于最大堆：父节点的值总是大于或等于其子节点的值。 借用一张图说明一下（src） # 适用场景 数据流的实时处理：比如要持续跟踪最大或最小的N个元素。 任务调度：使用优先级队列管理任务的执行优先级。 带优先级的待处理列表：如操作系统中进程调度，或网络路由中的包调度。 图算法：如 Dijkstra 算法或 Prim 算法中使用堆来优化性能。 # 实现接口 要使用 container/heap 包，必须实现 heap.Interface 这个接口，包含以下方法： Len() int：返回堆中的元素数量。 Less(i, j int) bool：比较索引为 i 和 j 的元素，若第一个元素应当排在第二个元素之前，则返回 true。 如果要实现最小堆，则前一个元素要小于后一个元素； 如果要实现最大堆，则前一个元素要大于后一个元素。 Swap(i, j int)：交换索引为 i 和 j 的元素。 Push(x interface{})：将元素 x 添加到堆的末尾。 Pop() interface{}：从堆中移除并返回最后一个元素（即最大/小元素）。 # 可用方法 方法 说明 时间复杂度 Init(h Interface) 对提供的堆进行初始化或重新构建。 O(n) Push(h Interface, x interface{}) 向堆中插入新元素 x。 O(logn) Pop(h Interface) interface{} 从堆中取出并返回最顶端的元素，">
+<title>Golang Container</title>
+
+<link rel='canonical' href='http://localhost:1313/post/golang-container/'>
+
+<link rel="stylesheet" href="/scss/style.min.760e3dabc1e140d2e6abd27a8ca0aabb60e568829b29f67d2df12024136eff37.css"><meta property='og:title' content="Golang Container">
+<meta property='og:description' content="# 基本介绍 Go的container包提供了三种数据结构的实现，包括堆（heap）、双向列表（list）、环形列表（ring）。 # container/heap # 数据结构 完全二叉树：在完全二叉树中，所有的层都被完全填满，除了可能的最后一层。在最后一层，所有的节点都尽可能地向左对齐。 堆是特殊的完全二叉树，特殊点在于父节点与其子节点的大小关系： 对于最小堆：父节点的值总是小于或等于其子节点的值。 对于最大堆：父节点的值总是大于或等于其子节点的值。 借用一张图说明一下（src） # 适用场景 数据流的实时处理：比如要持续跟踪最大或最小的N个元素。 任务调度：使用优先级队列管理任务的执行优先级。 带优先级的待处理列表：如操作系统中进程调度，或网络路由中的包调度。 图算法：如 Dijkstra 算法或 Prim 算法中使用堆来优化性能。 # 实现接口 要使用 container/heap 包，必须实现 heap.Interface 这个接口，包含以下方法： Len() int：返回堆中的元素数量。 Less(i, j int) bool：比较索引为 i 和 j 的元素，若第一个元素应当排在第二个元素之前，则返回 true。 如果要实现最小堆，则前一个元素要小于后一个元素； 如果要实现最大堆，则前一个元素要大于后一个元素。 Swap(i, j int)：交换索引为 i 和 j 的元素。 Push(x interface{})：将元素 x 添加到堆的末尾。 Pop() interface{}：从堆中移除并返回最后一个元素（即最大/小元素）。 # 可用方法 方法 说明 时间复杂度 Init(h Interface) 对提供的堆进行初始化或重新构建。 O(n) Push(h Interface, x interface{}) 向堆中插入新元素 x。 O(logn) Pop(h Interface) interface{} 从堆中取出并返回最顶端的元素，">
+<meta property='og:url' content='http://localhost:1313/post/golang-container/'>
+<meta property='og:site_name' content='TwoMental&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Golang' /><meta property='article:tag' content='Container' /><meta property='article:tag' content='Heap' /><meta property='article:tag' content='List' /><meta property='article:published_time' content='2024-04-14T17:27:58&#43;08:00'/><meta property='article:modified_time' content='2024-04-14T17:27:58&#43;08:00'/>
+<meta name="twitter:title" content="Golang Container">
+<meta name="twitter:description" content="# 基本介绍 Go的container包提供了三种数据结构的实现，包括堆（heap）、双向列表（list）、环形列表（ring）。 # container/heap # 数据结构 完全二叉树：在完全二叉树中，所有的层都被完全填满，除了可能的最后一层。在最后一层，所有的节点都尽可能地向左对齐。 堆是特殊的完全二叉树，特殊点在于父节点与其子节点的大小关系： 对于最小堆：父节点的值总是小于或等于其子节点的值。 对于最大堆：父节点的值总是大于或等于其子节点的值。 借用一张图说明一下（src） # 适用场景 数据流的实时处理：比如要持续跟踪最大或最小的N个元素。 任务调度：使用优先级队列管理任务的执行优先级。 带优先级的待处理列表：如操作系统中进程调度，或网络路由中的包调度。 图算法：如 Dijkstra 算法或 Prim 算法中使用堆来优化性能。 # 实现接口 要使用 container/heap 包，必须实现 heap.Interface 这个接口，包含以下方法： Len() int：返回堆中的元素数量。 Less(i, j int) bool：比较索引为 i 和 j 的元素，若第一个元素应当排在第二个元素之前，则返回 true。 如果要实现最小堆，则前一个元素要小于后一个元素； 如果要实现最大堆，则前一个元素要大于后一个元素。 Swap(i, j int)：交换索引为 i 和 j 的元素。 Push(x interface{})：将元素 x 添加到堆的末尾。 Pop() interface{}：从堆中移除并返回最后一个元素（即最大/小元素）。 # 可用方法 方法 说明 时间复杂度 Init(h Interface) 对提供的堆进行初始化或重新构建。 O(n) Push(h Interface, x interface{}) 向堆中插入新元素 x。 O(logn) Pop(h Interface) interface{} 从堆中取出并返回最顶端的元素，">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://github.com/TwoMental/twomental.github.io/blob/main/images/blog_default.jpg?raw=true" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">TwoMental&#39;s Blog</a></h1>
+            <h2 class="site-description">Hi!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/TwoMental'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#基本介绍">基本介绍</a></li>
+    <li><a href="#containerheap"><code>container/heap</code></a>
+      <ol>
+        <li><a href="#数据结构">数据结构</a></li>
+        <li><a href="#适用场景">适用场景</a></li>
+        <li><a href="#实现接口">实现接口</a></li>
+        <li><a href="#可用方法">可用方法</a></li>
+        <li><a href="#使用示例">使用示例</a></li>
+        <li><a href="#动手实践">动手实践</a></li>
+      </ol>
+    </li>
+    <li><a href="#containerlist"><code>container/list</code></a></li>
+    <li><a href="#containerring"><code>container/ring</code></a></li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/golang/" >
+                Golang
+            </a>
+        
+            <a href="/categories/data-structure/" >
+                Data Structure
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/golang-container/">Golang Container</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 14, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="基本介绍">
+    <a href="#%e5%9f%ba%e6%9c%ac%e4%bb%8b%e7%bb%8d" class="header-anchor">#</a>
+    基本介绍
+</h2><p>Go的<a class="link" href="https://pkg.go.dev/container"  target="_blank" rel="noopener"
+    >container</a>包提供了三种数据结构的实现，包括堆（heap）、双向列表（list）、环形列表（ring）。</p>
+<h2 id="containerheap">
+    <a href="#containerheap" class="header-anchor">#</a>
+    <code>container/heap</code>
+</h2><h3 id="数据结构">
+    <a href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="header-anchor">#</a>
+    数据结构
+</h3><ul>
+<li>完全二叉树：在完全二叉树中，所有的层都被完全填满，除了可能的最后一层。在最后一层，所有的节点都尽可能地向左对齐。</li>
+<li>堆是特殊的完全二叉树，特殊点在于父节点与其子节点的大小关系：
+<ul>
+<li>对于<strong>最小堆</strong>：父节点的值总是小于或等于其子节点的值。</li>
+<li>对于<strong>最大堆</strong>：父节点的值总是大于或等于其子节点的值。</li>
+</ul>
+</li>
+</ul>
+<p><em>借用一张图说明一下（<a class="link" href="https://yuminlee2.medium.com/golang-heap-data-structure-45760f9562dc"  target="_blank" rel="noopener"
+    >src</a>）</em></p>
+<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ft0znE4VoA3O2FLyt1UvcQ.png" alt="最小堆与最大堆" width="60%"/>
+<h3 id="适用场景">
+    <a href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor">#</a>
+    适用场景
+</h3><ul>
+<li>数据流的实时处理：比如要持续跟踪最大或最小的N个元素。</li>
+<li>任务调度：使用优先级队列管理任务的执行优先级。</li>
+<li>带优先级的待处理列表：如操作系统中进程调度，或网络路由中的包调度。</li>
+<li>图算法：如 Dijkstra 算法或 Prim 算法中使用堆来优化性能。</li>
+</ul>
+<h3 id="实现接口">
+    <a href="#%e5%ae%9e%e7%8e%b0%e6%8e%a5%e5%8f%a3" class="header-anchor">#</a>
+    实现接口
+</h3><p>要使用 container/heap 包，必须实现 heap.Interface 这个接口，包含以下方法：</p>
+<ul>
+<li><code>Len() int</code>：返回堆中的元素数量。</li>
+<li><code>Less(i, j int) bool</code>：比较索引为 i 和 j 的元素，若第一个元素应当排在第二个元素之前，则返回 true。
+<ul>
+<li>如果要实现<strong>最小堆</strong>，则前一个元素要小于后一个元素；</li>
+<li>如果要实现<strong>最大堆</strong>，则前一个元素要大于后一个元素。</li>
+</ul>
+</li>
+<li><code>Swap(i, j int)</code>：交换索引为 i 和 j 的元素。</li>
+<li><code>Push(x interface{})</code>：将元素 x 添加到堆的末尾。</li>
+<li><code>Pop() interface{}</code>：从堆中移除并返回最后一个元素（即最大/小元素）。</li>
+</ul>
+<h3 id="可用方法">
+    <a href="#%e5%8f%af%e7%94%a8%e6%96%b9%e6%b3%95" class="header-anchor">#</a>
+    可用方法
+</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>Init(h Interface)</code></td>
+<td style="text-align:left">对提供的堆进行初始化或重新构建。</td>
+<td style="text-align:center">O(n)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Push(h Interface, x interface{})</code></td>
+<td style="text-align:left">向堆中插入新元素 x。</td>
+<td style="text-align:center">O(logn)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Pop(h Interface) interface{}</code></td>
+<td style="text-align:left">从堆中取出并返回最顶端的元素，<br>在最小堆中是最小元素，<br>在最大堆中是最大元素。</td>
+<td style="text-align:center">O(logn)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Remove(h Interface, i int) interface{}</code></td>
+<td style="text-align:left">移除并返回索引 i 处的元素。</td>
+<td style="text-align:center">O(logn)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Fix(h Interface, i int)</code></td>
+<td style="text-align:left">在修改了堆中索引 i 处的元素后，<br>调用此方法以修复堆的结构。</td>
+<td style="text-align:center">O(logn)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="使用示例">
+    <a href="#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b" class="header-anchor">#</a>
+    使用示例
+</h3><p><a class="link" href="https://pkg.go.dev/container/heap#example-package-IntHeap"  target="_blank" rel="noopener"
+    >官方示例</a>提供了一个整数最小堆的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;container/heap&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 实现方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">IntHeap</span> <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="nx">IntHeap</span><span class="p">)</span> <span class="nf">Len</span><span class="p">()</span> <span class="kt">int</span>           <span class="p">{</span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="nx">IntHeap</span><span class="p">)</span> <span class="nf">Less</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">h</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">h</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="nx">IntHeap</span><span class="p">)</span> <span class="nf">Swap</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span>      <span class="p">{</span> <span class="nx">h</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">h</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">h</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">h</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="o">*</span><span class="nx">IntHeap</span><span class="p">)</span> <span class="nf">Push</span><span class="p">(</span><span class="nx">x</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span> <span class="o">*</span><span class="nx">h</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">h</span><span class="p">,</span> <span class="nx">x</span><span class="p">.(</span><span class="kt">int</span><span class="p">))}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="o">*</span><span class="nx">IntHeap</span><span class="p">)</span> <span class="nf">Pop</span><span class="p">()</span> <span class="nx">any</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">old</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">h</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">old</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">old</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="nx">h</span> <span class="p">=</span> <span class="nx">old</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">h</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">IntHeap</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">heap</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">heap</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;minimum: %d\n&#34;</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="nx">h</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">h</span><span class="p">.</span><span class="nf">Len</span><span class="p">()</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="nx">heap</span><span class="p">.</span><span class="nf">Pop</span><span class="p">(</span><span class="nx">h</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="动手实践">
+    <a href="#%e5%8a%a8%e6%89%8b%e5%ae%9e%e8%b7%b5" class="header-anchor">#</a>
+    动手实践
+</h3><ul>
+<li>leetcode
+<ul>
+<li><code>简单</code> <a class="link" href="https://leetcode.cn/problems/kth-largest-element-in-a-stream/description/"  target="_blank" rel="noopener"
+    >703. 数据流中的第 K 大元素</a></li>
+<li><code>中等</code> <a class="link" href="https://leetcode.cn/problems/top-k-frequent-elements/description/"  target="_blank" rel="noopener"
+    >347. 前 K 个高频元素</a></li>
+<li><code>困难</code> <a class="link" href="https://leetcode.cn/problems/merge-k-sorted-lists/description/"  target="_blank" rel="noopener"
+    >23. 合并 K 个升序链表</a></li>
+<li><code>困难</code> <a class="link" href="https://leetcode.cn/problems/course-schedule-iii/description/"  target="_blank" rel="noopener"
+    >630. 课程表 III</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="containerlist">
+    <a href="#containerlist" class="header-anchor">#</a>
+    <code>container/list</code>
+</h2><h2 id="containerring">
+    <a href="#containerring" class="header-anchor">#</a>
+    <code>container/ring</code>
+</h2><h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor">#</a>
+    参考
+</h2><ol>
+<li><a class="link" href="https://pkg.go.dev/container"  target="_blank" rel="noopener"
+    >container</a></li>
+<li><a class="link" href="https://yuminlee2.medium.com/golang-heap-data-structure-45760f9562dc"  target="_blank" rel="noopener"
+    >Golang: Heap data structure</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/golang/">Golang</a>
+        
+            <a href="/tags/container/">Container</a>
+        
+            <a href="/tags/heap/">Heap</a>
+        
+            <a href="/tags/list/">List</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 TwoMental&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
