@@ -210,8 +210,25 @@
         <li><a href="#动手实践">动手实践</a></li>
       </ol>
     </li>
-    <li><a href="#containerlist"><code>container/list</code></a></li>
-    <li><a href="#containerring"><code>container/ring</code></a></li>
+    <li><a href="#containerlist"><code>container/list</code></a>
+      <ol>
+        <li><a href="#数据结构-1">数据结构</a></li>
+        <li><a href="#适用场景-1">适用场景</a></li>
+        <li><a href="#可用方法-1">可用方法</a></li>
+        <li><a href="#使用示例-1">使用示例</a></li>
+        <li><a href="#动手实践-1">动手实践</a></li>
+        <li><a href="#源码学习">源码学习</a></li>
+      </ol>
+    </li>
+    <li><a href="#containerring"><code>container/ring</code></a>
+      <ol>
+        <li><a href="#数据结构-2">数据结构</a></li>
+        <li><a href="#适用场景-2">适用场景</a></li>
+        <li><a href="#可用方法-2">可用方法</a></li>
+        <li><a href="#使用示例-2">使用示例</a></li>
+        <li><a href="#动手实践-2">动手实践</a></li>
+      </ol>
+    </li>
     <li><a href="#参考">参考</a></li>
   </ol>
 </nav>
@@ -281,7 +298,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    3 minute read
                 </time>
             </div>
         
@@ -462,7 +479,7 @@
     <a href="#%e5%8a%a8%e6%89%8b%e5%ae%9e%e8%b7%b5" class="header-anchor">#</a>
     动手实践
 </h3><ul>
-<li>leetcode
+<li>Leetcode
 <ul>
 <li><code>简单</code> <a class="link" href="https://leetcode.cn/problems/kth-largest-element-in-a-stream/description/"  target="_blank" rel="noopener"
     >703. 数据流中的第 K 大元素</a></li>
@@ -478,10 +495,292 @@
 <h2 id="containerlist">
     <a href="#containerlist" class="header-anchor">#</a>
     <code>container/list</code>
-</h2><h2 id="containerring">
+</h2><h3 id="数据结构-1">
+    <a href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84-1" class="header-anchor">#</a>
+    数据结构
+</h3><ul>
+<li>双向链表：是链表的一种，它的每个数据结点中都有两个指针，分别指向直接后继和直接前驱。</li>
+<li>源码定义
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="c1">// 双向链表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">List</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">root</span> <span class="nx">Element</span>    <span class="c1">// 根节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">len</span>  <span class="kt">int</span>        <span class="c1">// 长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 链表元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Element</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">next</span><span class="p">,</span> <span class="nx">prev</span> <span class="o">*</span><span class="nx">Element</span> <span class="c1">// 前/后节点的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">list</span> <span class="o">*</span><span class="nx">List</span>          <span class="c1">// 所在链表的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Value</span> <span class="nx">any</span>           <span class="c1">// 该节点的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="适用场景-1">
+    <a href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af-1" class="header-anchor">#</a>
+    适用场景
+</h3><ul>
+<li>需要频繁插入和删除元素的场景：如任务调度、事件处理队列等，链表可以在任意位置快速插入或删除节点。</li>
+<li>实现其他复杂数据结构：例如堆栈、队列、双端队列等。</li>
+<li>需要双向遍历的情况：双向链表可以从头到尾或从尾到头遍历。</li>
+</ul>
+<h3 id="可用方法-1">
+    <a href="#%e5%8f%af%e7%94%a8%e6%96%b9%e6%b3%95-1" class="header-anchor">#</a>
+    可用方法
+</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>New() *List</code></td>
+<td style="text-align:left">创建并返回一个新的空链表。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Len() int</code></td>
+<td style="text-align:left">返回链表长度。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PushFront(v interface{}) *Element</code></td>
+<td style="text-align:left">在链表的前端添加一个新元素，<br>返回新元素的指针。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PushBack(v interface{}) *Element</code></td>
+<td style="text-align:left">在链表的末尾添加一个新元素，<br>返回新元素的指针。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>InsertBefore(v any, mark *Element) *Element</code></td>
+<td style="text-align:left">在指定元素的前面添加一个新元素，<br>返回新元素的指针。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>InsertAfter(v any, mark *Element) *Element</code></td>
+<td style="text-align:left">在指定元素的后面添加一个新元素，<br>返回新元素的指针。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>MoveToFront(e *Element)</code></td>
+<td style="text-align:left">把指定元素移动到链表的前端。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>MoveToBack(e *Element)</code></td>
+<td style="text-align:left">把指定元素移动到链表的末尾。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>MoveBefore(e, mark *Element)</code></td>
+<td style="text-align:left">把一个元素移动到另一个元素之前。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>MoveAfter(e, mark *Element)</code></td>
+<td style="text-align:left">把一个元素移动到另一个元素之后。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PushBackList(other *List)</code></td>
+<td style="text-align:left">将另一个链表的内容添加到当前链表的末尾。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PushFrontList(other *List)</code></td>
+<td style="text-align:left">将另一个链表的内容添加到当前链表的前端。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Remove(e *Element) interface{}</code></td>
+<td style="text-align:left">从链表中删除指定元素，<br>返回该元素中存储的数据。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Front() *Element</code></td>
+<td style="text-align:left">获取链表的第一个元素。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Back() *Element</code></td>
+<td style="text-align:left">获取链表的最后一个元素。</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="使用示例-1">
+    <a href="#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b-1" class="header-anchor">#</a>
+    使用示例
+</h3><p><a class="link" href="https://pkg.go.dev/container/list#example-package"  target="_blank" rel="noopener"
+    >官方示例</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;container/list&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Create a new list and put some numbers in it.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">l</span> <span class="o">:=</span> <span class="nx">list</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">e4</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">.</span><span class="nf">PushBack</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">e1</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">.</span><span class="nf">PushFront</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">l</span><span class="p">.</span><span class="nf">InsertBefore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nx">e4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">l</span><span class="p">.</span><span class="nf">InsertAfter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nx">e1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Iterate through list and print its contents.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">.</span><span class="nf">Front</span><span class="p">();</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">e</span> <span class="p">=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="动手实践-1">
+    <a href="#%e5%8a%a8%e6%89%8b%e5%ae%9e%e8%b7%b5-1" class="header-anchor">#</a>
+    动手实践
+</h3><ul>
+<li>Leetcode
+<ul>
+<li><code>简单</code> <a class="link" href="https://leetcode.cn/problems/design-hashset/description"  target="_blank" rel="noopener"
+    >705. 设计哈希集合</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="源码学习">
+    <a href="#%e6%ba%90%e7%a0%81%e5%ad%a6%e4%b9%a0" class="header-anchor">#</a>
+    源码学习
+</h3><p>除了通过调用<code>l := list.New()</code>方法，也可以直接声明变量<code>var l list.List</code>获得一个List实例，这是因为有<code>lazyInit</code>的存在。</p>
+<ul>
+<li><code>lazyInit</code>的实现如下，主要用于检查根节点的next元素是否为nil
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="nf">lazyInit</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">l</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">l</span><span class="p">.</span><span class="nf">Init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><code>lazyInit</code>使用如下，在所有push方法调用时，先做lazy init
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="nf">PushFront</span><span class="p">(</span><span class="nx">v</span> <span class="nx">any</span><span class="p">)</span> <span class="o">*</span><span class="nx">Element</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">l</span><span class="p">.</span><span class="nf">lazyInit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="nf">PushBack</span><span class="p">(</span><span class="nx">v</span> <span class="nx">any</span><span class="p">)</span> <span class="o">*</span><span class="nx">Element</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">l</span><span class="p">.</span><span class="nf">lazyInit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="nf">PushBackList</span><span class="p">(</span><span class="nx">other</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">l</span><span class="p">.</span><span class="nf">lazyInit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="nf">PushFrontList</span><span class="p">(</span><span class="nx">other</span> <span class="o">*</span><span class="nx">List</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">l</span><span class="p">.</span><span class="nf">lazyInit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="containerring">
     <a href="#containerring" class="header-anchor">#</a>
     <code>container/ring</code>
-</h2><h2 id="参考">
+</h2><h3 id="数据结构-2">
+    <a href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84-2" class="header-anchor">#</a>
+    数据结构
+</h3><h3 id="适用场景-2">
+    <a href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af-2" class="header-anchor">#</a>
+    适用场景
+</h3><h3 id="可用方法-2">
+    <a href="#%e5%8f%af%e7%94%a8%e6%96%b9%e6%b3%95-2" class="header-anchor">#</a>
+    可用方法
+</h3><h3 id="使用示例-2">
+    <a href="#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b-2" class="header-anchor">#</a>
+    使用示例
+</h3><h3 id="动手实践-2">
+    <a href="#%e5%8a%a8%e6%89%8b%e5%ae%9e%e8%b7%b5-2" class="header-anchor">#</a>
+    动手实践
+</h3><h2 id="参考">
     <a href="#%e5%8f%82%e8%80%83" class="header-anchor">#</a>
     参考
 </h2><ol>
