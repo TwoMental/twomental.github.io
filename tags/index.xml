@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on TwoMental&#39;s Blog</title>
-    <link>https://twomental.github.io/tags/</link>
-    <description>Recent content in Tags on TwoMental&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-ch</language>
-    <lastBuildDate>Sat, 09 Mar 2024 14:30:50 +0800</lastBuildDate>
-    <atom:link href="https://twomental.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Docker</title>
-      <link>https://twomental.github.io/tags/docker/</link>
-      <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
-      <guid>https://twomental.github.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Dockerfile</title>
-      <link>https://twomental.github.io/tags/dockerfile/</link>
-      <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
-      <guid>https://twomental.github.io/tags/dockerfile/</guid>
-      <description></description>
-    </item>
-  </channel>
+    <channel>
+        <title>Tags on TwoMental&#39;s Blog</title>
+        <link>http://localhost:1313/tags/</link>
+        <description>Recent content in Tags on TwoMental&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-ch</language>
+        <lastBuildDate>Sat, 09 Mar 2024 14:30:50 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker</title>
+        <link>http://localhost:1313/tags/docker/</link>
+        <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
+        
+        <guid>http://localhost:1313/tags/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Dockerfile</title>
+        <link>http://localhost:1313/tags/dockerfile/</link>
+        <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
+        
+        <guid>http://localhost:1313/tags/dockerfile/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
 </rss>

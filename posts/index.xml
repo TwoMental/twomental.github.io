@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on TwoMental&#39;s Blog</title>
-    <link>https://twomental.github.io/posts/</link>
-    <description>Recent content in Posts on TwoMental&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-ch</language>
-    <lastBuildDate>Sat, 09 Mar 2024 14:30:50 +0800</lastBuildDate>
-    <atom:link href="https://twomental.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Docker笔记</title>
-      <link>https://twomental.github.io/posts/docker-note/</link>
-      <pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate>
-      <guid>https://twomental.github.io/posts/docker-note/</guid>
-      <description>1. 基本介绍 1.1 Docker原理 TODO&#xA;1.2 VS 虚拟机 TODO&#xA;2. 使用别人的镜像 2.1 获取镜像 如果是拉在Docker Hub注册的镜像，比如python的镜像 # 明确tag docker pull python:3.9.0 # 不明确tag默认为latest docker pull python 如果是拉非Docker hub注册的公开镜像，比如elastic公司的logstash镜像 # 镜像名构成：地址/命名空间/镜像名[:镜像tag] docker pull docker.elastic.co/logstash/logstash:7.6.0 如果是拉非公开镜像，比如自己仓库的镜像 # 先登录 docker login xxx.xxx # 再拉镜像 docker pull xxx.xxx/some_project/some_img:0.1.0 如果镜像仓库不是https # 修改/etc/docker/daemon.json # 添加 &amp;#34;insecure-registries&amp;#34;:[&amp;#34;192.166.1.23:5001&amp;#34;] # 重启docker systemctl restart docker # 登录 docker login 192.166.1.23:5001 # 再拉镜像 docker pull 192.166.1.23:5001/some_project/some_img:0.1.0 如果要运行的环境甚至不能联网 # 保存镜像 docker save nginx -o nginx.</description>
-    </item>
-    <item>
-      <title>Hello</title>
-      <link>https://twomental.github.io/posts/hello/</link>
-      <pubDate>Sat, 24 Feb 2024 17:10:15 +0800</pubDate>
-      <guid>https://twomental.github.io/posts/hello/</guid>
-      <description>package main func main() { fmt.Println(&amp;#34;Hello from TwoMental!&amp;#34;) } Cover created by DALL·E.</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on TwoMental's Blog</title><link>http://localhost:1313/posts/</link><description>Recent content in Posts on TwoMental's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-ch</language><lastBuildDate>Sat, 09 Mar 2024 14:30:50 +0800</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker笔记</title><link>http://localhost:1313/posts/docker-note/</link><pubDate>Sat, 09 Mar 2024 14:30:50 +0800</pubDate><guid>http://localhost:1313/posts/docker-note/</guid><description>1. 基本介绍 # 1.1 Docker原理 # TODO
+1.2 VS 虚拟机 # TODO
+2. 使用别人的镜像 # 2.1 获取镜像 # 如果是拉在Docker Hub注册的镜像，比如python的镜像 # 明确tag docker pull python:3.9.0 # 不明确tag默认为latest docker pull python 如果是拉非Docker hub注册的公开镜像，比如elastic公司的logstash镜像 # 镜像名构成：地址/命名空间/镜像名[:镜像tag] docker pull docker.elastic.co/logstash/logstash:7.6.0 如果是拉非公开镜像，比如自己仓库的镜像 # 先登录 docker login xxx.xxx # 再拉镜像 docker pull xxx.xxx/some_project/some_img:0.1.0 如果镜像仓库不是https # 修改/etc/docker/daemon.json # 添加 &amp;#34;insecure-registries&amp;#34;:[&amp;#34;192.166.1.23:5001&amp;#34;] # 重启docker systemctl restart docker # 登录 docker login 192.166.1.23:5001 # 再拉镜像 docker pull 192.166.1.23:5001/some_project/some_img:0.1.0 如果要运行的环境甚至不能联网 # 保存镜像 docker save nginx -o nginx.</description></item><item><title>Hello</title><link>http://localhost:1313/posts/hello/</link><pubDate>Sat, 24 Feb 2024 17:10:15 +0800</pubDate><guid>http://localhost:1313/posts/hello/</guid><description>package main func main() { fmt.Println(&amp;#34;Hello from TwoMental!&amp;#34;) } Cover created by DALL·E.</description></item></channel></rss>
