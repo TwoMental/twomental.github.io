@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Algorithm on TwoMental&#39;s Blog</title>
+        <link>http://localhost:1313/categories/algorithm/</link>
+        <description>Recent content in Algorithm on TwoMental&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-ch</language>
+        <lastBuildDate>Tue, 30 Apr 2024 16:24:16 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/algorithm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>线性规划实战</title>
+        <link>http://localhost:1313/post/linear-programming-practice/</link>
+        <pubDate>Tue, 30 Apr 2024 16:24:16 +0800</pubDate>
+        
+        <guid>http://localhost:1313/post/linear-programming-practice/</guid>
+        <description>&lt;h2 id=&#34;基本概念&#34;&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    基本概念
+&lt;/h2&gt;&lt;p&gt;线性规划可用来解决在约束条件下的最优解。&lt;/p&gt;
+&lt;h3 id=&#34;三要素&#34;&gt;
+    &lt;a href=&#34;#%e4%b8%89%e8%a6%81%e7%b4%a0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    三要素
+&lt;/h3&gt;&lt;p&gt;在利用线性规划解决问题之前，需要明确三个要素。&lt;/p&gt;
+&lt;p&gt;借用&lt;a class=&#34;link&#34; href=&#34;https://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92#%E4%BE%8B%E5%AD%90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;维基百科的农药例子&lt;/a&gt;，假设一个农夫有一块面积为A的农地、F肥料、P农药，打算种植小麦和大麦，每单位小麦/大麦的投入产出见表格，问如何种植才能卖出最高的价格。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;小麦&lt;/th&gt;
+&lt;th&gt;大麦&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;所需肥料&lt;/td&gt;
+&lt;td&gt;F1&lt;/td&gt;
+&lt;td&gt;F2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;所需农药&lt;/td&gt;
+&lt;td&gt;P1&lt;/td&gt;
+&lt;td&gt;P2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;售卖价格&lt;/td&gt;
+&lt;td&gt;S1&lt;/td&gt;
+&lt;td&gt;S2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;决策变量&lt;/strong&gt;: 需要通过计算得出的值。如例子中小麦的种植面积、大麦的种植面积&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标函数&lt;/strong&gt;: 需要达成的目标。如例子中小麦和大麦的卖出价格之和&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;约束条件&lt;/strong&gt;: 计算过程中受到的限制。如例子中的农地面积、肥料数量、农药数量、小麦/大麦最低种植面积(不为负)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;scipyoptimizelinprog&#34;&gt;
+    &lt;a href=&#34;#scipyoptimizelinprog&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    scipy.optimize.linprog
+&lt;/h3&gt;&lt;p&gt;线性规划在标准形式上，发展出很多不同的形式，由于用的是scipy提供的包，所以以&lt;code&gt;scipy.optimize.linprog&lt;/code&gt;所提供的形式来解决解析来的问题。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目标函数
+$$
+\min C^TX \tag{1}
+$$&lt;/li&gt;
+&lt;li&gt;约束条件
+$$
+A_{ub} X \leq b_{ub} \tag{2}
+$$
+$$
+A_{eq} X = b_{eq} \tag{3}
+$$
+$$
+l \leq X \leq u \tag{4}
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;demo上手&#34;&gt;
+    &lt;a href=&#34;#demo%e4%b8%8a%e6%89%8b&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    demo上手
+&lt;/h2&gt;&lt;p&gt;仍然以&lt;a class=&#34;link&#34; href=&#34;https://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92#%E4%BE%8B%E5%AD%90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;维基百科的农药例子&lt;/a&gt;为例，假设一个农夫有一块面积为$A=100$的农地、$F=200$肥料、$P=40$农药，打算种植小麦和大麦，每单位小麦/大麦的投入产出见表格，问如何种植才能卖出最高的价格。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;小麦&lt;/th&gt;
+&lt;th&gt;大麦&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;所需肥料&lt;/td&gt;
+&lt;td&gt;F1=20&lt;/td&gt;
+&lt;td&gt;F2=15&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;所需农药&lt;/td&gt;
+&lt;td&gt;P1=0.5&lt;/td&gt;
+&lt;td&gt;P2=0.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;售卖价格&lt;/td&gt;
+&lt;td&gt;S1=20&lt;/td&gt;
+&lt;td&gt;S2=10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;决策变量&#34;&gt;
+    &lt;a href=&#34;#%e5%86%b3%e7%ad%96%e5%8f%98%e9%87%8f&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    决策变量
+&lt;/h3&gt;&lt;p&gt;设种植小麦$x_1$，种植大麦$x_2$，矩阵表达为:
+$$
+X = \left[
+\begin{matrix}
+x_1\
+x_2
+\end{matrix}
+\right]
+\tag{5}
+$$&lt;/p&gt;
+&lt;h3 id=&#34;目标函数&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%ae%e6%a0%87%e5%87%bd%e6%95%b0&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    目标函数
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;目标函数为:
+$$
+\begin{align}
+target &amp;amp;= S1 \times x_1 + S2 \times x_2 \
+&amp;amp; = 20\times x_1+10 \times x_2
+\end{align} \tag{6}
+$$&lt;/li&gt;
+&lt;li&gt;转化成矩阵形式为:
+$$
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;实战&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%9e%e6%88%98&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    实战
+&lt;/h2&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

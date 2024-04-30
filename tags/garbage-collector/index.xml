@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Garbage Collector on TwoMental&#39;s Blog</title>
+        <link>http://localhost:1313/tags/garbage-collector/</link>
+        <description>Recent content in Garbage Collector on TwoMental&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-ch</language>
+        <lastBuildDate>Wed, 24 Apr 2024 14:41:25 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/garbage-collector/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Golang 垃圾回收</title>
+        <link>http://localhost:1313/post/golang-gc/</link>
+        <pubDate>Wed, 24 Apr 2024 14:41:25 +0800</pubDate>
+        
+        <guid>http://localhost:1313/post/golang-gc/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tip.golang.org/doc/gc-guide&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A Guide to the Go Garbage Collector&lt;/a&gt;学习笔记&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
